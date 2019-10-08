@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import * as actionCreators from "../redux/actions/authActions";
 import {
   Container,
   Header,
@@ -25,7 +27,7 @@ class LoginForm extends Component {
   };
 
   handleSubmit = () => {
-    alert("Check my code the states are empty");
+    this.props.login(this.state);
   };
 
   render() {
@@ -37,7 +39,14 @@ class LoginForm extends Component {
         <Content>
           <Form>
             <Item>
-              <Input name="username" value={username} placeholder="Username" />
+              <Input
+                name="username"
+                value={username}
+                placeholder="Username"
+                onChangeText={username =>
+                  this.handleChange({ username: username })
+                }
+              />
             </Item>
             <Item last>
               <Input
@@ -45,6 +54,9 @@ class LoginForm extends Component {
                 placeholder="Password"
                 secureTextEntry
                 name="password"
+                onChangeText={password =>
+                  this.handleChange({ password: password })
+                }
               />
             </Item>
             <Button onPress={this.handleSubmit}>
@@ -56,4 +68,18 @@ class LoginForm extends Component {
     );
   }
 }
-export default LoginForm;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    login: userData => dispatch(actionCreators.login(userData))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);

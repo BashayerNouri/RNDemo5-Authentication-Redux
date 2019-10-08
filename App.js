@@ -8,6 +8,13 @@ import { Provider } from "react-redux";
 //Components
 import LoginForm from "./components/LoginForm";
 
-export default function App() {
-  return <LoginForm />;
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <LoginForm />
+      </Provider>
+    );
+  }
 }
+export default App;

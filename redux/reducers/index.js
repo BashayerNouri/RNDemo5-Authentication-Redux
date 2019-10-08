@@ -17,3 +17,12 @@
 // const store = createStore(rootReducer, enhancer);
 
 // export default store;
+
+import { combineReducers } from "redux";
+
+// Reducers
+import authReducer from "./authReducer";
+
+export default combineReducers({
+  user: authReducer
+});
